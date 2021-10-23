@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+    # コンテナ１
+    postgres:
+        # コンテナ名
+        container_name: postgres
+        # dockerfile
+        build:
+            context: .
+            dockerfile: ./postgres/Dockerfile
+        # 環境変数の設定
+        environment:
+            - POSTGRES_USER=api_user
+            - POSTGRES_PASSWORD=password
+            - POSTGRES_DB=app_db
+    api:    
+        container_name: api
+        ports:
+            - "8080:8080"
+        # postgres をビルドした後に api をビルド
+        depends_on:
+            - postgres
+        build:
+            context: .
+            dockerfile: ./api/Dockerfile
+        environment:
+            - GOPATH=/go
+        # フォルダ共有（ホストOS:コンテナ）
+        volumes:
+            - ./api/src/:/go/src/api/
+        # docker-compose run 実行時に実行されるコマンド
+        working_dir: /go/src/api/
+        command: >
+            sh -c "reflex -s -r '\.go$$' go run main.go"         
+            
+# contextをおく理由
+# https://qiita.com/sam8helloworld/items/e7fffa9afc82aea68a7a

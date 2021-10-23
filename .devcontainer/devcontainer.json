@@ -1,0 +1,23 @@
+{
+	"name": "GoApi",
+	"dockerComposeFile": [
+		"../docker-compose.yml",
+	],
+	"service": "api",
+	"workspaceFolder": "/go/src/",
+	"settings": {
+		"terminal.integrated.shell.linux": null,
+		"go.toolsManagement.checkForUpdates": "off",
+		"go.gopath": "/go",
+		"go.gocodeAutoBuild": true,
+		"go.formatTool": "gofmt",
+		"go.useLanguageServer": true,
+		"editor.formatOnSave": false,
+		"[go]": {
+			"editor.formatOnSave": true
+		}
+	},
+	"extensions": [
+		"golang.go"
+	]
+}
