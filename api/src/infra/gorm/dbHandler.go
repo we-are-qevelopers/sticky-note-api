@@ -1,6 +1,7 @@
-package infra
+package gorm
 
 import (
+	"database/sql"
 	"fmt"
 	"log"
 
@@ -8,6 +9,10 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
+
+type SqlHandler struct {
+	Conn *sql.DB
+}
 
 var DB *gorm.DB
 
@@ -17,6 +22,22 @@ type DBConfig struct {
 	User     string
 	Password string
 	DBName   string
+}
+
+func NewSqlHandler() *gorm.DB {
+	var err error
+	dsn := dbConfigs["dev"].GetDSN()
+	DB, err = gorm.Open(
+		postgres.New(postgres.Config{
+			DriverName: "postgres",
+			DSN:        dsn,
+		}))
+
+	if err != nil {
+		log.Fatalln("接続失敗", err)
+	}
+
+	return DB
 }
 
 var dbConfigs = map[string]DBConfig{
@@ -56,6 +77,3 @@ func SetupDB() error {
 
 	return nil
 }
-
-// memo
-// DSN=データソース名
