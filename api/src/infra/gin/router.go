@@ -1,8 +1,6 @@
 package gin
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
 
 	"sticky-note-api/interfaceAdaptor/gin/controllers"
@@ -10,13 +8,20 @@ import (
 
 type Routing struct {
 	UserController *controllers.UsersController
+	AuthController *controllers.AuthController
 	Gin            *gin.Engine
 	Port           string
 }
 
-func NewRouting(userController *controllers.UsersController) *Routing {
+type RouterParam struct {
+	UserController *controllers.UsersController
+	AuthController *controllers.AuthController
+}
+
+func NewRouting(param RouterParam) *Routing {
 	r := &Routing{
-		UserController: userController,
+		AuthController: param.AuthController,
+		UserController: param.UserController,
 		Gin:            gin.Default(),
 		Port:           ":8080",
 	}
@@ -24,12 +29,15 @@ func NewRouting(userController *controllers.UsersController) *Routing {
 	return r
 }
 
+// ルーティングを定義
 func (r *Routing) setRouting() {
 	r.Gin.GET("/", func(c *gin.Context) { r.UserController.View(c) })
 	r.Gin.GET("/users/:id", func(c *gin.Context) { r.UserController.View(c) })
+	r.Gin.POST("/signup", func(c *gin.Context) { r.AuthController.Signup(c) })
+
 }
 
+// サーバー実行
 func (r *Routing) Run() {
-	fmt.Println(9999)
 	r.Gin.Run(r.Port)
 }
