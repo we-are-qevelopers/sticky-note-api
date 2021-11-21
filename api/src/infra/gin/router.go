@@ -18,21 +18,27 @@ type RouterParam struct {
 	AuthController *controllers.AuthController
 }
 
-func NewRouting(param RouterParam) *Routing {
+func NewRouting(param RouterParam, GinEngine *gin.Engine, Port string) *Routing {
 	r := &Routing{
 		AuthController: param.AuthController,
 		UserController: param.UserController,
-		Gin:            gin.Default(),
-		Port:           ":8080",
+		Gin:            GinEngine,
+		Port:           Port,
 	}
+	// corsの設定をginにセット
+	r.Gin.Use(CORSConfig())
 	r.setRouting()
 	return r
 }
 
 // ルーティングを定義
 func (r *Routing) setRouting() {
+	// 認証が必要なエンドポイント（ログインチェックを行う）
+	authGroup := r.Gin.Group("/", LoginCheck())
+	{
+		authGroup.GET("/users/:id", func(c *gin.Context) { r.UserController.View(c) })
+	}
 	r.Gin.GET("/", func(c *gin.Context) { r.UserController.View(c) })
-	r.Gin.GET("/users/:id", func(c *gin.Context) { r.UserController.View(c) })
 	r.Gin.POST("/signup", func(c *gin.Context) { r.AuthController.Signup(c) })
 
 }
