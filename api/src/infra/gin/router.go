@@ -7,37 +7,42 @@ import (
 )
 
 type Routing struct {
-	UserController *controllers.UsersController
-	AuthController *controllers.AuthController
-	Gin            *gin.Engine
-	Port           string
+	UserController       *controllers.UsersController
+	AuthController       *controllers.AuthController
+	StickyNoteController *controllers.StickyNoteController
+	Gin                  *gin.Engine
+	Port                 string
 }
 
 type RouterParam struct {
-	UserController *controllers.UsersController
-	AuthController *controllers.AuthController
+	UserController       *controllers.UsersController
+	AuthController       *controllers.AuthController
+	StickyNoteController *controllers.StickyNoteController
 }
 
 func NewRouting(param RouterParam, GinEngine *gin.Engine, Port string) *Routing {
 	r := &Routing{
-		AuthController: param.AuthController,
-		UserController: param.UserController,
-		Gin:            GinEngine,
-		Port:           Port,
+		AuthController:       param.AuthController,
+		UserController:       param.UserController,
+		StickyNoteController: param.StickyNoteController,
+		Gin:                  GinEngine,
+		Port:                 Port,
 	}
-	// corsの設定をginにセット
-	r.Gin.Use(CORSConfig())
+
 	r.setRouting()
 	return r
 }
 
 // ルーティングを定義
 func (r *Routing) setRouting() {
+	// corsの設定をginにセット
+	r.Gin.Use(CORSConfig())
 	// 認証が必要なエンドポイント（ログインチェックを行う）
 	authGroup := r.Gin.Group("/", LoginCheck())
 	{
 		authGroup.GET("/users/:id", func(c *gin.Context) { r.UserController.View(c) })
 	}
+	r.Gin.GET("/stickyNote", func(c *gin.Context) { r.StickyNoteController.Get(c) })
 	r.Gin.GET("/hello", func(c *gin.Context) { r.UserController.View(c) })
 	r.Gin.POST("/signup", func(c *gin.Context) { r.AuthController.Signup(c) })
 

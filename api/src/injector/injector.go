@@ -38,3 +38,9 @@ func InjectAuthController() *controllers.AuthController {
 	sqlhandler := gorm.NewSqlHandler()
 	return controllers.NewAuthController(useCase.NewAuthUsecase(gorm.NewAuthRepository(sqlhandler)))
 }
+
+//// StickyNoteドメイン
+func InjectStickyNoteController() *controllers.StickyNoteController {
+	sqlhandler := gorm.NewSqlHandler()
+	return controllers.NewStickyNoteController(useCase.NewStickyNoteUsecase(gorm.NewStickyNoteRepository(sqlhandler)))
+}

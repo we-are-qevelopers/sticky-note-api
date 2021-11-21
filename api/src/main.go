@@ -15,10 +15,12 @@ func main() {
 	// 各ドメインごとのコントローラーを定義
 	userController := injector.InjectUserController()
 	authController := injector.InjectAuthController()
+	stickyNoteController := injector.InjectStickyNoteController()
 
 	ginRouterParam := gin.RouterParam{
-		UserController: userController,
-		AuthController: authController,
+		UserController:       userController,
+		AuthController:       authController,
+		StickyNoteController: stickyNoteController,
 	}
 	ginEngine := originalGin.Default()
 
