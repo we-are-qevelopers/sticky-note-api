@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"sticky-note-api/useCase"
 )
 
@@ -12,7 +13,18 @@ func NewAuthController(authUseCase useCase.AuthUsecase) *AuthController {
 	return &AuthController{authUseCase: authUseCase}
 }
 
+type ReqBody struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
 func (controller *AuthController) Signup(c Context) {
+
+	var reqBody ReqBody
+	if err := c.ShouldBindJSON(&reqBody); err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(reqBody)
 
 	// users, err := controller.authUseCase.Signup()
 	// if err != nil {
@@ -20,5 +32,5 @@ func (controller *AuthController) Signup(c Context) {
 	// }
 	// fmt.Println(users)
 
-	c.JSON(200, "hello world")
+	c.JSON(200, "Sign up")
 }

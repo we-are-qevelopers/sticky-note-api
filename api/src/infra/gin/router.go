@@ -38,7 +38,7 @@ func (r *Routing) setRouting() {
 	{
 		authGroup.GET("/users/:id", func(c *gin.Context) { r.UserController.View(c) })
 	}
-	r.Gin.GET("/", func(c *gin.Context) { r.UserController.View(c) })
+	r.Gin.GET("/hello", func(c *gin.Context) { r.UserController.View(c) })
 	r.Gin.POST("/signup", func(c *gin.Context) { r.AuthController.Signup(c) })
 
 }
