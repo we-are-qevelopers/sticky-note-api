@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"sticky-note-api/infra/gin"
-	"sticky-note-api/injector"
+
+	"github.com/we-are-qevelopers/sticky-note-api/infra/gin"
+	"github.com/we-are-qevelopers/sticky-note-api/injector"
 
 	originalGin "github.com/gin-gonic/gin"
 )

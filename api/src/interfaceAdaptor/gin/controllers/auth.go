@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"fmt"
-	"sticky-note-api/useCase"
+	"github.com/we-are-qevelopers/sticky-note-api/useCase"
 )
 
 type AuthController struct {

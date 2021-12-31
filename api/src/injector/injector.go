@@ -1,10 +1,10 @@
 package injector
 
 import (
-	"sticky-note-api/domain/repository"
-	"sticky-note-api/infra/gorm"
-	"sticky-note-api/interfaceAdaptor/gin/controllers"
-	"sticky-note-api/useCase"
+	"github.com/we-are-qevelopers/sticky-note-api/domain/repository"
+	"github.com/we-are-qevelopers/sticky-note-api/infra/gorm"
+	"github.com/we-are-qevelopers/sticky-note-api/interfaceAdaptor/gin/controllers"
+	"github.com/we-are-qevelopers/sticky-note-api/useCase"
 
 	originalGorm "gorm.io/gorm"
 )

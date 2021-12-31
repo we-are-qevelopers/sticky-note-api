@@ -1,4 +1,4 @@
-module sticky-note-api
+module github.com/we-are-qevelopers/sticky-note-api
 
 go 1.16
 

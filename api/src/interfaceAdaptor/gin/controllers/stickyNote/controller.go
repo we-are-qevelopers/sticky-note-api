@@ -1,8 +1,8 @@
 package get
 
 import (
-	"sticky-note-api/interfaceAdaptor/gin/controllers"
-	"sticky-note-api/useCase"
+	"github.com/we-are-qevelopers/sticky-note-api/interfaceAdaptor/gin/controllers"
+	"github.com/we-are-qevelopers/sticky-note-api/useCase"
 )
 
 type StickyNoteController struct {

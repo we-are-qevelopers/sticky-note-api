@@ -3,7 +3,7 @@ package gin
 import (
 	"github.com/gin-gonic/gin"
 
-	"sticky-note-api/interfaceAdaptor/gin/controllers"
+	"github.com/we-are-qevelopers/sticky-note-api/interfaceAdaptor/gin/controllers"
 )
 
 type Routing struct {

@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"sticky-note-api/domain/model"
+	"github.com/we-are-qevelopers/sticky-note-api/domain/model"
 )
 
 // domain/repositoryには、永続化させるための関数のinterfaceを定義
